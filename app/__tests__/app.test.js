@@ -1,7 +1,10 @@
 const request = require('supertest');
 
+process.env.PORT = '0';
+
 jest.mock('../../app/photo_model');
 jest.mock('../../app/zip_producer');
+jest.mock('../../app/zip_worker');
 const zipProducer = require('../../app/zip_producer');
 const app = require('../../app/server');
 

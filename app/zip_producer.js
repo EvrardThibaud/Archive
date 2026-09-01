@@ -8,7 +8,7 @@ const topic = pubSubClient.topic(TOPIC_NAME);
 
 function publishTags(tags) {
   const data = Buffer.from(JSON.stringify({tags}));
-  return topic.publishMessage({data});
+  return topic.publishMessage({data});  
 }
 
 module.exports = {
