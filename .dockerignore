@@ -1,4 +1,6 @@
+.env
+.git
+.github
+coverage
 node_modules
 npm-debug.log*
-.DS_Store
-.env

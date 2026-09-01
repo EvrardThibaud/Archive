@@ -1,5 +1,6 @@
 const formValidator = require('./form_validator');
 const photoModel = require('./photo_model');
+const zipProducer = require('./zip_producer');
 
 function route(app) {
   app.get('/', (req, res) => {
@@ -36,6 +37,22 @@ function route(app) {
       .catch(error => {
         console.log('aspdfonaposd', error)
         return res.status(500).send({ error });
+      });
+  });
+
+  app.post('/zip', (req, res) => {
+    const tags = req.query.tags;
+
+    if (!tags || !formValidator.isValidCommaDelimitedList(tags)) {
+      return res.status(400).send({error: 'Invalid tags parameter'});
+    }
+
+    return zipProducer
+      .publishTags(tags)
+      .then(messageId => res.status(202).send({messageId}))
+      .catch(error => {
+        console.error('Unable to queue zip request', error);
+        return res.status(500).send({error: 'Unable to queue zip request'});
       });
   });
 }

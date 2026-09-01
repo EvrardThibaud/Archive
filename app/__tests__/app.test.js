@@ -1,9 +1,16 @@
 const request = require('supertest');
 
 jest.mock('../../app/photo_model');
+jest.mock('../../app/zip_producer');
+const zipProducer = require('../../app/zip_producer');
 const app = require('../../app/server');
 
 describe('index route', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    zipProducer.publishTags.mockResolvedValue('message-id');
+  });
+
   afterEach(() => {
     app.server.close();
   });
@@ -49,6 +56,53 @@ describe('index route', () => {
       .expect(500)
       .then(response => {
         expect(response.body).toEqual({ error: 'Internal server error' });
+      });
+  });
+
+  test('should display the zip button with the search tags', () => {
+    return request(app)
+      .get('/?tags=california,sunset&tagmode=all')
+      .expect(200)
+      .then(response => {
+        expect(response.text).toMatch(
+          /action="\/zip\?tags=california%2Csunset"/
+        );
+      });
+  });
+
+  test('should queue the tags to zip', () => {
+    return request(app)
+      .post('/zip?tags=california,sunset')
+      .expect('Content-Type', /json/)
+      .expect(202)
+      .then(response => {
+        expect(zipProducer.publishTags).toHaveBeenCalledWith(
+          'california,sunset'
+        );
+        expect(response.body).toEqual({messageId: 'message-id'});
+      });
+  });
+
+  test('should reject invalid zip tags', () => {
+    return request(app)
+      .post('/zip?tags=california123')
+      .expect('Content-Type', /json/)
+      .expect(400)
+      .then(response => {
+        expect(zipProducer.publishTags).not.toHaveBeenCalled();
+        expect(response.body).toEqual({error: 'Invalid tags parameter'});
+      });
+  });
+
+  test('should respond with an error when queueing fails', () => {
+    zipProducer.publishTags.mockRejectedValue(new Error('Pub/Sub error'));
+
+    return request(app)
+      .post('/zip?tags=california')
+      .expect('Content-Type', /json/)
+      .expect(500)
+      .then(response => {
+        expect(response.body).toEqual({error: 'Unable to queue zip request'});
       });
   });
 });
