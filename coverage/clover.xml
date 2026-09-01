@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1788265696982" clover="3.2.0">
-  <project timestamp="1788265696982" name="All files">
-    <metrics statements="94" coveredstatements="94" conditionals="20" coveredconditionals="19" methods="18" coveredmethods="18" elements="132" coveredelements="131" complexity="0" loc="94" ncloc="94" packages="1" files="7" classes="7"/>
+<coverage generated="1788271075747" clover="3.2.0">
+  <project timestamp="1788271075747" name="All files">
+    <metrics statements="150" coveredstatements="144" conditionals="28" coveredconditionals="24" methods="38" coveredmethods="34" elements="216" coveredelements="202" complexity="0" loc="150" ncloc="150" packages="1" files="9" classes="9"/>
     <file name="form_validator.js" path="/Users/thibaudevrard/Downloads/Archive/app/form_validator.js">
       <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
       <line num="3" count="14" type="stmt"/>
@@ -9,6 +9,15 @@
       <line num="8" count="8" type="cond" truecount="2" falsecount="0"/>
       <line num="12" count="7" type="cond" truecount="2" falsecount="0"/>
       <line num="15" count="2" type="stmt"/>
+    </file>
+    <file name="job_store.js" path="/Users/thibaudevrard/Downloads/Archive/app/job_store.js">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="1" count="2" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
     </file>
     <file name="jsonp_helper.js" path="/Users/thibaudevrard/Downloads/Archive/app/jsonp_helper.js">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -20,13 +29,13 @@
       <line num="10" count="5" type="stmt"/>
       <line num="12" count="2" type="stmt"/>
       <line num="13" count="2" type="stmt"/>
-      <line num="17" count="4" type="stmt"/>
+      <line num="17" count="5" type="stmt"/>
     </file>
     <file name="photo_model.js" path="/Users/thibaudevrard/Downloads/Archive/app/photo_model.js">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-      <line num="1" count="3" type="stmt"/>
-      <line num="2" count="3" type="stmt"/>
-      <line num="3" count="3" type="stmt"/>
+      <line num="1" count="4" type="stmt"/>
+      <line num="2" count="4" type="stmt"/>
+      <line num="5" count="3" type="stmt"/>
       <line num="6" count="3" type="stmt"/>
       <line num="8" count="3" type="stmt"/>
       <line num="10" count="3" type="stmt"/>
@@ -34,8 +43,8 @@
       <line num="13" count="1" type="stmt"/>
       <line num="14" count="2" type="stmt"/>
       <line num="15" count="2" type="stmt"/>
-      <line num="18" count="1" type="stmt"/>
-      <line num="22" count="3" type="stmt"/>
+      <line num="19" count="1" type="stmt"/>
+      <line num="23" count="4" type="stmt"/>
     </file>
     <file name="route.js" path="/Users/thibaudevrard/Downloads/Archive/app/route.js">
       <metrics statements="27" coveredstatements="27" conditionals="14" coveredconditionals="14" methods="7" coveredmethods="7"/>
@@ -88,6 +97,52 @@
       <line num="27" count="1" type="stmt"/>
       <line num="29" count="1" type="stmt"/>
     </file>
+    <file name="zip_job.js" path="/Users/thibaudevrard/Downloads/Archive/app/zip_job.js">
+      <metrics statements="43" coveredstatements="37" conditionals="8" coveredconditionals="5" methods="16" coveredmethods="12"/>
+      <line num="1" count="2" type="stmt"/>
+      <line num="2" count="2" type="stmt"/>
+      <line num="3" count="2" type="stmt"/>
+      <line num="4" count="2" type="stmt"/>
+      <line num="6" count="2" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+      <line num="8" count="2" type="stmt"/>
+      <line num="10" count="2" type="stmt"/>
+      <line num="13" count="10" type="stmt"/>
+      <line num="14" count="10" type="stmt"/>
+      <line num="15" count="10" type="stmt"/>
+      <line num="16" count="10" type="cond" truecount="1" falsecount="1"/>
+      <line num="17" count="0" type="stmt"/>
+      <line num="19" count="10" type="stmt"/>
+      <line num="25" count="2" type="stmt"/>
+      <line num="26" count="0" type="stmt"/>
+      <line num="28" count="0" type="stmt"/>
+      <line num="29" count="0" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="32" count="0" type="stmt"/>
+      <line num="34" count="0" type="stmt"/>
+      <line num="39" count="2" type="stmt"/>
+      <line num="44" count="2" type="stmt"/>
+      <line num="45" count="2" type="stmt"/>
+      <line num="47" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="48" count="1" type="stmt"/>
+      <line num="51" count="1" type="stmt"/>
+      <line num="52" count="1" type="stmt"/>
+      <line num="53" count="1" type="stmt"/>
+      <line num="60" count="1" type="stmt"/>
+      <line num="62" count="1" type="stmt"/>
+      <line num="63" count="1" type="stmt"/>
+      <line num="64" count="1" type="stmt"/>
+      <line num="65" count="1" type="stmt"/>
+      <line num="66" count="1" type="stmt"/>
+      <line num="73" count="1" type="stmt"/>
+      <line num="75" count="1" type="stmt"/>
+      <line num="77" count="10" type="stmt"/>
+      <line num="78" count="10" type="cond" truecount="1" falsecount="1"/>
+      <line num="79" count="10" type="stmt"/>
+      <line num="80" count="10" type="stmt"/>
+      <line num="83" count="1" type="stmt"/>
+      <line num="89" count="2" type="stmt"/>
+    </file>
     <file name="zip_producer.js" path="/Users/thibaudevrard/Downloads/Archive/app/zip_producer.js">
       <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <line num="1" count="2" type="stmt"/>
@@ -100,22 +155,29 @@
       <line num="14" count="2" type="stmt"/>
     </file>
     <file name="zip_worker.js" path="/Users/thibaudevrard/Downloads/Archive/app/zip_worker.js">
-      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
       <line num="1" count="2" type="stmt"/>
+      <line num="2" count="2" type="stmt"/>
       <line num="3" count="2" type="stmt"/>
-      <line num="4" count="2" type="stmt"/>
+      <line num="5" count="2" type="stmt"/>
       <line num="6" count="2" type="stmt"/>
-      <line num="7" count="2" type="stmt"/>
-      <line num="10" count="2" type="stmt"/>
-      <line num="11" count="1" type="stmt"/>
-      <line num="12" count="1" type="stmt"/>
-      <line num="13" count="1" type="stmt"/>
+      <line num="8" count="2" type="stmt"/>
+      <line num="9" count="2" type="stmt"/>
+      <line num="12" count="3" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="14" count="2" type="stmt"/>
       <line num="16" count="2" type="stmt"/>
-      <line num="17" count="1" type="stmt"/>
-      <line num="20" count="2" type="stmt"/>
-      <line num="21" count="2" type="stmt"/>
-      <line num="23" count="2" type="stmt"/>
-      <line num="26" count="2" type="stmt"/>
+      <line num="19" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="29" count="3" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="33" count="3" type="stmt"/>
+      <line num="34" count="3" type="stmt"/>
+      <line num="36" count="3" type="stmt"/>
+      <line num="39" count="2" type="stmt"/>
     </file>
   </project>
 </coverage>

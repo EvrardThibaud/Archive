@@ -1,8 +1,8 @@
-const got = require('got');
 const querystring = require('querystring');
 const jsonpHelper = require('./jsonp_helper');
 
 function getFlickrPhotos(tags, tagmode) {
+  const got = require('got');
   const qs = querystring.stringify({ tags, tagmode, format: 'json' });
 
   const options = `https://api.flickr.com/services/feeds/photos_public.gne?${qs}`;

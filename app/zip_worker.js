@@ -1,4 +1,6 @@
 const {PubSub} = require('@google-cloud/pubsub');
+const jobStore = require('./job_store');
+const zipJob = require('./zip_job');
 
 const PROJECT_ID = 'ecni2-2026';
 const SUBSCRIPTION_NAME = 'ecni2-9';
@@ -10,7 +12,18 @@ function listenForMessages() {
   const messageHandler = message => {
     const data = JSON.parse(message.data.toString());
     console.log(`Received zip request ${message.id}`, data);
-    message.ack();
+
+    return zipJob
+      .processZipJob(data.tags)
+      .then(result => {
+        jobStore.markSuccessful(data.tags, result.url);
+        console.log(`Completed zip request ${message.id}`, result.url);
+        message.ack();
+      })
+      .catch(error => {
+        console.error(`Failed zip request ${message.id}`, error);
+        message.nack();
+      });
   };
 
   const errorHandler = error => {

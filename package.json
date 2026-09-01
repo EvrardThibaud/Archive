@@ -17,11 +17,13 @@
   },
   "dependencies": {
     "@google-cloud/pubsub": "^6.0.1",
+    "@google-cloud/storage": "^8.0.1",
     "dotenv": "^17.4.2",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "got": "^14.4.9",
-    "serve-favicon": "^2.5.1"
+    "serve-favicon": "^2.5.1",
+    "zip-stream": "^6.0.1"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
