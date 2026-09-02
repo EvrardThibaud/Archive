@@ -4,12 +4,12 @@ describe('job store', () => {
   test('should store a successful job by its tags', () => {
     const job = jobStore.markSuccessful(
       'california,sunset',
-      'https://storage.example/archive.zip'
+      'public/zips/archive.zip'
     );
 
     expect(job).toEqual({
       status: 'successful',
-      url: 'https://storage.example/archive.zip'
+      filename: 'public/zips/archive.zip'
     });
     expect(jobStore.getJob('california,sunset')).toEqual(job);
   });

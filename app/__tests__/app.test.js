@@ -3,15 +3,23 @@ const request = require('supertest');
 process.env.PORT = '0';
 
 jest.mock('../../app/photo_model');
+jest.mock('../../app/job_store');
 jest.mock('../../app/zip_producer');
+jest.mock('../../app/zip_storage');
 jest.mock('../../app/zip_worker');
+const jobStore = require('../../app/job_store');
 const zipProducer = require('../../app/zip_producer');
+const zipStorage = require('../../app/zip_storage');
 const app = require('../../app/server');
 
 describe('index route', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jobStore.getJob.mockReturnValue(undefined);
     zipProducer.publishTags.mockResolvedValue('message-id');
+    zipStorage.getSignedDownloadUrl.mockResolvedValue(
+      'https://storage.example/download.zip'
+    );
   });
 
   afterEach(() => {
@@ -73,6 +81,26 @@ describe('index route', () => {
       });
   });
 
+  test('should display a signed download link for a completed job', () => {
+    jobStore.getJob.mockReturnValue({
+      status: 'successful',
+      filename: 'public/zips/archive.zip'
+    });
+
+    return request(app)
+      .get('/?tags=california&tagmode=all')
+      .expect(200)
+      .then(response => {
+        expect(zipStorage.getSignedDownloadUrl).toHaveBeenCalledWith(
+          'public/zips/archive.zip'
+        );
+        expect(response.text).toMatch(
+          /href="https:\/\/storage.example\/download.zip"/
+        );
+        expect(response.text).toMatch(/>Download ZIP<\/a>/);
+      });
+  });
+
   test('should queue the tags to zip', () => {
     return request(app)
       .post('/zip?tags=california,sunset')
@@ -83,6 +111,37 @@ describe('index route', () => {
           'california,sunset'
         );
         expect(response.body).toEqual({messageId: 'message-id'});
+      });
+  });
+
+  test('should return a pending status while the ZIP is being created', () => {
+    return request(app)
+      .get('/zip/status?tags=california')
+      .expect('Content-Type', /json/)
+      .expect(202)
+      .then(response => {
+        expect(response.body).toEqual({status: 'pending'});
+      });
+  });
+
+  test('should return the signed URL of a completed ZIP', () => {
+    jobStore.getJob.mockReturnValue({
+      status: 'successful',
+      filename: 'public/zips/archive.zip'
+    });
+
+    return request(app)
+      .get('/zip/status?tags=california')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then(response => {
+        expect(zipStorage.getSignedDownloadUrl).toHaveBeenCalledWith(
+          'public/zips/archive.zip'
+        );
+        expect(response.body).toEqual({
+          status: 'successful',
+          url: 'https://storage.example/download.zip'
+        });
       });
   });
 

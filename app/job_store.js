@@ -1,7 +1,7 @@
 const jobs = new Map();
 
-function markSuccessful(tags, url) {
-  const job = {status: 'successful', url};
+function markSuccessful(tags, filename) {
+  const job = {status: 'successful', filename};
   jobs.set(tags, job);
   return job;
 }

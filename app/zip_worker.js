@@ -16,8 +16,8 @@ function listenForMessages() {
     return zipJob
       .processZipJob(data.tags)
       .then(result => {
-        jobStore.markSuccessful(data.tags, result.url);
-        console.log(`Completed zip request ${message.id}`, result.url);
+        jobStore.markSuccessful(data.tags, result.filename);
+        console.log(`Completed zip request ${message.id}`, result.filename);
         message.ack();
       })
       .catch(error => {

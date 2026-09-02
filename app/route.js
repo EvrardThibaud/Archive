@@ -1,6 +1,16 @@
 const formValidator = require('./form_validator');
+const jobStore = require('./job_store');
 const photoModel = require('./photo_model');
 const zipProducer = require('./zip_producer');
+const zipStorage = require('./zip_storage');
+
+function getZipUrl(tags) {
+  const job = jobStore.getJob(tags);
+  if (!job) {
+    return Promise.resolve(null);
+  }
+  return zipStorage.getSignedDownloadUrl(job.filename);
+}
 
 function route(app) {
   app.get('/', (req, res) => {
@@ -11,6 +21,7 @@ function route(app) {
       tagsParameter: tags || '',
       tagmodeParameter: tagmode || '',
       photos: [],
+      zipUrl: null,
       searchResults: false,
       invalidParameters: false
     };
@@ -27,10 +38,13 @@ function route(app) {
     }
 
     // get photos from flickr public feed api
-    return photoModel
-      .getFlickrPhotos(tags, tagmode)
-      .then(photos => {
-        ejsLocalVariables.photos = photos;
+    return Promise.all([
+      photoModel.getFlickrPhotos(tags, tagmode),
+      getZipUrl(tags)
+    ])
+      .then(results => {
+        ejsLocalVariables.photos = results[0];
+        ejsLocalVariables.zipUrl = results[1];
         ejsLocalVariables.searchResults = true;
         return res.render('index', ejsLocalVariables);
       })
@@ -55,7 +69,27 @@ function route(app) {
         return res.status(500).send({error: 'Unable to queue zip request'});
       });
   });
+
+  app.get('/zip/status', (req, res) => {
+    const tags = req.query.tags;
+
+    if (!tags || !formValidator.isValidCommaDelimitedList(tags)) {
+      return res.status(400).send({error: 'Invalid tags parameter'});
+    }
+
+    const job = jobStore.getJob(tags);
+    if (!job) {
+      return res.status(202).send({status: 'pending'});
+    }
+
+    return zipStorage
+      .getSignedDownloadUrl(job.filename)
+      .then(url => res.send({status: job.status, url}))
+      .catch(error => {
+        console.error('Unable to generate ZIP download URL', error);
+        return res.status(500).send({error: 'Unable to get ZIP status'});
+      });
+  });
 }
 
 module.exports = route;
-

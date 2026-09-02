@@ -4,7 +4,7 @@ const ZipStream = require('zip-stream');
 const photoModel = require('./photo_model');
 
 const PROJECT_ID = 'ecni2-2026';
-const BUCKET_NAME = 'ecni22026bucket';
+const DEFAULT_BUCKET_NAME = 'ecni22026bucket';
 const MAX_PHOTOS = 10;
 
 const storage = new Storage({projectId: PROJECT_ID});
@@ -29,7 +29,10 @@ function defaultDependencies() {
       return got.default.stream(url);
     },
     createZip: () => new ZipStream(),
-    createFile: filename => storage.bucket(BUCKET_NAME).file(filename),
+    createFile: filename =>
+      storage
+        .bucket(process.env.STORAGE_BUCKET || DEFAULT_BUCKET_NAME)
+        .file(filename),
     createFilename: () =>
       `public/zips/${crypto.randomBytes(16).toString('hex')}.zip`
   };
@@ -65,7 +68,6 @@ function processZipJob(tags, dependencyOverrides) {
       uploadStream.once('finish', () => {
         resolve({
           filename,
-          url: file.publicUrl(),
           photoCount: selectedPhotos.length
         });
       });

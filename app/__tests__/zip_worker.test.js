@@ -16,7 +16,7 @@ describe('listenForMessages()', () => {
     mockOn.mockClear();
     mockProcessZipJob.mockReset();
     mockProcessZipJob.mockResolvedValue({
-      url: 'https://storage.example/archive.zip'
+      filename: 'public/zips/archive.zip'
     });
     mockMarkSuccessful.mockClear();
   });
@@ -45,7 +45,7 @@ describe('listenForMessages()', () => {
       expect(mockProcessZipJob).toHaveBeenCalledWith('california');
       expect(mockMarkSuccessful).toHaveBeenCalledWith(
         'california',
-        'https://storage.example/archive.zip'
+        'public/zips/archive.zip'
       );
       expect(ack).toHaveBeenCalledTimes(1);
       expect(nack).not.toHaveBeenCalled();

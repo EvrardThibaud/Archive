@@ -16,8 +16,7 @@ describe('processZipJob(tags)', () => {
     uploadStream.on('data', chunk => uploadedChunks.push(chunk));
 
     const file = {
-      createWriteStream: jest.fn(() => uploadStream),
-      publicUrl: jest.fn(() => 'https://storage.example/test.zip')
+      createWriteStream: jest.fn(() => uploadStream)
     };
     const getImageStream = jest.fn(url => Readable.from([Buffer.from(url)]));
     const dependencies = {
@@ -42,7 +41,6 @@ describe('processZipJob(tags)', () => {
       });
       expect(result).toEqual({
         filename: 'public/zips/test.zip',
-        url: 'https://storage.example/test.zip',
         photoCount: 10
       });
       expect(Buffer.concat(uploadedChunks).slice(0, 2).toString()).toBe('PK');

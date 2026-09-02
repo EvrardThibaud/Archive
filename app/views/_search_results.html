@@ -19,11 +19,64 @@
         <% }) %>
       </ul>
 
-      <form method="post" action="/zip?tags=<%= encodeURIComponent(tagsParameter) %>">
-        <button type="submit" class="btn btn-primary">
-          Zip the first 10 photos
-        </button>
-      </form>
+      <% if (zipUrl) { %>
+        <a href="<%= zipUrl %>" class="btn btn-success">Download ZIP</a>
+      <% } else { %>
+        <form id="zip-form" method="post"
+          action="/zip?tags=<%= encodeURIComponent(tagsParameter) %>"
+          data-status-url="/zip/status?tags=<%= encodeURIComponent(tagsParameter) %>">
+          <button type="submit" class="btn btn-primary">
+            Zip the first 10 photos
+          </button>
+          <span class="zip-status"></span>
+        </form>
+
+        <script>
+          (function () {
+            var form = document.getElementById('zip-form');
+            var button = form.querySelector('button');
+            var status = form.querySelector('.zip-status');
+
+            function checkStatus() {
+              fetch(form.dataset.statusUrl)
+                .then(function (response) { return response.json(); })
+                .then(function (job) {
+                  if (job.status === 'successful') {
+                    var link = document.createElement('a');
+                    link.href = job.url;
+                    link.className = 'btn btn-success';
+                    link.textContent = 'Download ZIP';
+                    form.parentNode.replaceChild(link, form);
+                    return;
+                  }
+                  window.setTimeout(checkStatus, 1000);
+                })
+                .catch(function () {
+                  status.textContent = ' Unable to check ZIP status';
+                  button.disabled = false;
+                });
+            }
+
+            form.addEventListener('submit', function (event) {
+              event.preventDefault();
+              button.disabled = true;
+              status.textContent = ' Creating ZIP...';
+
+              fetch(form.action, {method: 'POST'})
+                .then(function (response) {
+                  if (!response.ok) {
+                    throw new Error('Unable to queue ZIP');
+                  }
+                  checkStatus();
+                })
+                .catch(function () {
+                  status.textContent = ' Unable to create ZIP';
+                  button.disabled = false;
+                });
+            });
+          })();
+        </script>
+      <% } %>
 
     <% } else { %>
       <div class="alert alert-info"><strong>No results</strong></div>
