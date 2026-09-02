@@ -3,3 +3,4 @@ npm-debug.log*
 .DS_Store
 .env
 *-service-account.json
+google-credentials/
