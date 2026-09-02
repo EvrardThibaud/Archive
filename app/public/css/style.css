@@ -5,3 +5,11 @@
   display: inline-block;
   margin: 0 10px 20px 0;
 }
+
+#firebase-auth .btn { margin-left: 10px; }
+
+.zip-history-item {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}

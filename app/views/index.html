@@ -2,20 +2,41 @@
 
 
 <div class="container">
-
-  <%- include("_search_form.html") -%>
-
-  <% if (invalidParameters) { %>
-    <div class="alert alert-danger">
-      <strong>Invalid value for "tags" or "tagmode" input parameters</strong><br><br>
-      Tags should be formatted as a comma delimited list containing only letters, commas, and spaces.
-      Tag Mode must equal "all" or "any".
+  <div id="firebase-auth" class="panel panel-info">
+    <div class="panel-body">
+      <span id="auth-message">Connectez-vous pour utiliser l'application.</span>
+      <button id="sign-in-button" type="button" class="btn btn-primary pull-right">
+        Connexion avec Google
+      </button>
+      <button id="sign-out-button" type="button" class="btn btn-default pull-right" hidden>
+        Déconnexion
+      </button>
     </div>
-  <% } %>
+  </div>
 
-  <% if (searchResults) { %>
-    <%- include("_search_results.html") -%>
-  <% } %>
+  <main id="authenticated-app" hidden>
+
+    <%- include("_search_form.html") -%>
+
+    <% if (invalidParameters) { %>
+      <div class="alert alert-danger">
+        <strong>Invalid value for "tags" or "tagmode" input parameters</strong><br><br>
+        Tags should be formatted as a comma delimited list containing only letters, commas, and spaces.
+        Tag Mode must equal "all" or "any".
+      </div>
+    <% } %>
+
+    <% if (searchResults) { %>
+      <%- include("_search_results.html") -%>
+    <% } %>
+
+    <section id="zip-history" data-firebase-path="<%= firebaseUserPath %>">
+      <hr>
+      <h2>ZIP déjà générés</h2>
+      <p id="zip-history-status">Chargement…</p>
+      <ul id="zip-history-list" class="list-group"></ul>
+    </section>
+  </main>
 
 </div>
 

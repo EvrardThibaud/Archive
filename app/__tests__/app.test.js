@@ -3,6 +3,9 @@ const request = require('supertest');
 process.env.PORT = '0';
 
 jest.mock('../../app/photo_model');
+jest.mock('../../app/firebase_auth', () => ({
+  requireFirebaseAuth: (req, res, next) => next()
+}));
 jest.mock('../../app/job_store');
 jest.mock('../../app/zip_producer');
 jest.mock('../../app/zip_storage');

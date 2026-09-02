@@ -6,6 +6,31 @@ This project is a simple express app for demonstrating testing and code coverage
 Jest is also used for mocking functions and measuring code coverage.
 Note that this app only focuses on server-side JavaScript testing.
 
+## Firebase setup
+
+The server uses the same Google service-account file as Pub/Sub and Cloud
+Storage. Keep this JSON file outside the repository and configure `.env` from
+`.env.example`:
+
+```dotenv
+GOOGLE_APPLICATION_CREDENTIALS=/absolute/path/to/service-account-key.json
+STORAGE_BUCKET=ecni22026bucket
+FIREBASE_USER_PATH=thibaud
+```
+
+In the Firebase console for `ecni2-2026`:
+
+1. Enable **Authentication > Sign-in method > Google**.
+2. Add `localhost` and the Render hostname to **Authentication > Settings >
+   Authorized domains**.
+3. Configure Realtime Database rules so authenticated users can read
+   `/thibaud`. Client writes should remain disabled because completed ZIPs are
+   written by Firebase Admin on the server.
+
+Each completed job is saved under
+`/thibaud/<zip timestamp>/<zip identifier>`. The record contains its tags,
+Cloud Storage path, signed download URL, number of photos, and creation date.
+
 
 ## Requirements
 

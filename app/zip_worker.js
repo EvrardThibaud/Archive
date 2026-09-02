@@ -1,6 +1,8 @@
 const {PubSub} = require('@google-cloud/pubsub');
+const firebaseZipStore = require('./firebase_zip_store');
 const jobStore = require('./job_store');
 const zipJob = require('./zip_job');
+const zipStorage = require('./zip_storage');
 
 const PROJECT_ID = 'ecni2-2026';
 const SUBSCRIPTION_NAME = 'ecni2-9';
@@ -15,6 +17,15 @@ function listenForMessages() {
 
     return zipJob
       .processZipJob(data.tags)
+      .then(result =>
+        zipStorage
+          .getSignedDownloadUrl(result.filename)
+          .then(downloadUrl =>
+            firebaseZipStore
+              .saveSuccessfulZip(data.tags, result, downloadUrl)
+              .then(() => result)
+          )
+      )
       .then(result => {
         jobStore.markSuccessful(data.tags, result.filename);
         console.log(`Completed zip request ${message.id}`, result.filename);

@@ -37,8 +37,15 @@
             var button = form.querySelector('button');
             var status = form.querySelector('.zip-status');
 
+            function authenticatedFetch(url, options) {
+              if (!window.firebaseRequest) {
+                return Promise.reject(new Error('Authentication is not ready'));
+              }
+              return window.firebaseRequest(url, options);
+            }
+
             function checkStatus() {
-              fetch(form.dataset.statusUrl)
+              authenticatedFetch(form.dataset.statusUrl)
                 .then(function (response) { return response.json(); })
                 .then(function (job) {
                   if (job.status === 'successful') {
@@ -62,7 +69,7 @@
               button.disabled = true;
               status.textContent = ' Creating ZIP...';
 
-              fetch(form.action, {method: 'POST'})
+              authenticatedFetch(form.action, {method: 'POST'})
                 .then(function (response) {
                   if (!response.ok) {
                     throw new Error('Unable to queue ZIP');

@@ -1,4 +1,5 @@
 const formValidator = require('./form_validator');
+const firebaseAuth = require('./firebase_auth');
 const jobStore = require('./job_store');
 const photoModel = require('./photo_model');
 const zipProducer = require('./zip_producer');
@@ -22,6 +23,7 @@ function route(app) {
       tagmodeParameter: tagmode || '',
       photos: [],
       zipUrl: null,
+      firebaseUserPath: process.env.FIREBASE_USER_PATH || 'thibaud',
       searchResults: false,
       invalidParameters: false
     };
@@ -54,7 +56,7 @@ function route(app) {
       });
   });
 
-  app.post('/zip', (req, res) => {
+  app.post('/zip', firebaseAuth.requireFirebaseAuth, (req, res) => {
     const tags = req.query.tags;
 
     if (!tags || !formValidator.isValidCommaDelimitedList(tags)) {
@@ -70,7 +72,7 @@ function route(app) {
       });
   });
 
-  app.get('/zip/status', (req, res) => {
+  app.get('/zip/status', firebaseAuth.requireFirebaseAuth, (req, res) => {
     const tags = req.query.tags;
 
     if (!tags || !formValidator.isValidCommaDelimitedList(tags)) {
