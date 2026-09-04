@@ -1,0 +1,19 @@
+<%- include("_header.html") -%>
+
+<div class="container">
+  <%- include("_firebase_auth.html") -%>
+
+  <main id="authenticated-app" hidden>
+    <p><a href="/" class="btn btn-default">Retour à la recherche</a></p>
+
+    <section id="zip-history"
+      data-firebase-path="<%= firebaseDatabasePath %>"
+      data-group-by-user="true">
+      <h2>Historique des ZIP</h2>
+      <p id="zip-history-status">Chargement…</p>
+      <ul id="zip-history-list" class="list-group"></ul>
+    </section>
+  </main>
+</div>
+
+<%- include("_footer.html") -%>

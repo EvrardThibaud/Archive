@@ -53,19 +53,41 @@ window.firebaseRequest = function(url, options) {
   });
 };
 
-function flattenZips(data) {
+function flattenUserZips(data, user) {
   const zips = [];
 
   Object.keys(data || {}).forEach(timestamp => {
     Object.keys(data[timestamp] || {}).forEach(filename => {
-      zips.push(data[timestamp][filename]);
+      const zip = data[timestamp][filename];
+      if (zip && typeof zip === 'object') {
+        zips.push(Object.assign({}, zip, {user}));
+      }
     });
   });
 
   return zips.sort((first, second) => second.createdAt - first.createdAt);
 }
 
+function flattenZips(data) {
+  if (historySection.dataset.groupByUser !== 'true') {
+    return flattenUserZips(data, null);
+  }
+
+  const zips = [];
+  Object.keys(data || {})
+    .sort((first, second) => first.localeCompare(second))
+    .forEach(user => {
+      zips.push.apply(zips, flattenUserZips(data[user], user));
+    });
+
+  return zips;
+}
+
 function renderZipHistory(data) {
+  if (!historyList || !historyStatus) {
+    return;
+  }
+
   const zips = flattenZips(data);
   historyList.textContent = '';
 
@@ -75,7 +97,16 @@ function renderZipHistory(data) {
   }
 
   historyStatus.textContent = '';
+  let currentUser = null;
   zips.forEach(zip => {
+    if (zip.user && zip.user !== currentUser) {
+      const userHeading = document.createElement('li');
+      userHeading.className = 'list-group-item active zip-user-heading';
+      userHeading.textContent = zip.user;
+      historyList.appendChild(userHeading);
+      currentUser = zip.user;
+    }
+
     const item = document.createElement('li');
     const link = document.createElement('a');
     const details = document.createElement('span');
@@ -84,7 +115,9 @@ function renderZipHistory(data) {
     link.href = zip.downloadUrl;
     link.className = 'btn btn-success btn-sm';
     link.textContent = 'Télécharger';
-    details.textContent = `${zip.tags} — ${new Date(zip.createdAt).toLocaleString()}`;
+    details.textContent = `${zip.tags} — ${zip.filename} — ${new Date(
+      zip.createdAt
+    ).toLocaleString()}`;
 
     item.appendChild(details);
     item.appendChild(link);
@@ -93,6 +126,10 @@ function renderZipHistory(data) {
 }
 
 function listenForZips() {
+  if (!historySection) {
+    return;
+  }
+
   const databasePath = historySection.dataset.firebasePath;
   historyStatus.textContent = 'Chargement…';
   stopListeningForZips = onValue(
@@ -122,7 +159,9 @@ onAuthStateChanged(auth, user => {
 
   if (!user) {
     authMessage.textContent = "Connectez-vous pour utiliser l'application.";
-    historyList.textContent = '';
+    if (historyList) {
+      historyList.textContent = '';
+    }
     if (stopListeningForZips) {
       stopListeningForZips();
       stopListeningForZips = null;

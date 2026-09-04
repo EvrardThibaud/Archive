@@ -41,6 +41,19 @@ describe('index route', () => {
       });
   });
 
+  test('should display the Firebase ZIP history page', () => {
+    return request(app)
+      .get('/historique')
+      .expect('Content-Type', /html/)
+      .expect(200)
+      .then(response => {
+        expect(response.text).toMatch(/<h2>Historique des ZIP<\/h2>/);
+        expect(response.text).toMatch(/data-firebase-path="\/"/);
+        expect(response.text).toMatch(/data-group-by-user="true"/);
+        expect(response.text).toMatch(/Connexion avec Google/);
+      });
+  });
+
   test('should respond with a 200 with valid query parameters', () => {
     return request(app)
       .get('/?tags=california&tagmode=all')

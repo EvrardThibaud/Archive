@@ -14,6 +14,12 @@ function getZipUrl(tags) {
 }
 
 function route(app) {
+  app.get('/historique', (req, res) =>
+    res.render('historique', {
+      firebaseDatabasePath: '/'
+    })
+  );
+
   app.get('/', (req, res) => {
     const tags = req.query.tags;
     const tagmode = req.query.tagmode;

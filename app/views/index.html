@@ -2,19 +2,13 @@
 
 
 <div class="container">
-  <div id="firebase-auth" class="panel panel-info">
-    <div class="panel-body">
-      <span id="auth-message">Connectez-vous pour utiliser l'application.</span>
-      <button id="sign-in-button" type="button" class="btn btn-primary pull-right">
-        Connexion avec Google
-      </button>
-      <button id="sign-out-button" type="button" class="btn btn-default pull-right" hidden>
-        Déconnexion
-      </button>
-    </div>
-  </div>
+  <%- include("_firebase_auth.html") -%>
 
   <main id="authenticated-app" hidden>
+
+    <p>
+      <a href="/historique" class="btn btn-default">Voir l'historique des ZIP</a>
+    </p>
 
     <%- include("_search_form.html") -%>
 
@@ -30,12 +24,6 @@
       <%- include("_search_results.html") -%>
     <% } %>
 
-    <section id="zip-history" data-firebase-path="<%= firebaseUserPath %>">
-      <hr>
-      <h2>ZIP déjà générés</h2>
-      <p id="zip-history-status">Chargement…</p>
-      <ul id="zip-history-list" class="list-group"></ul>
-    </section>
   </main>
 
 </div>

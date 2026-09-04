@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1788340738580" clover="3.2.0">
-  <project timestamp="1788340738580" name="All files">
-    <metrics statements="214" coveredstatements="201" conditionals="52" coveredconditionals="40" methods="55" coveredmethods="49" elements="321" coveredelements="290" complexity="0" loc="214" ncloc="214" packages="1" files="13" classes="13"/>
+<coverage generated="1788350445225" clover="3.2.0">
+  <project timestamp="1788350445225" name="All files">
+    <metrics statements="216" coveredstatements="203" conditionals="52" coveredconditionals="39" methods="56" coveredmethods="50" elements="324" coveredelements="292" complexity="0" loc="216" ncloc="216" packages="1" files="13" classes="13"/>
     <file name="firebase_app.js" path="/Users/thibaudevrard/Downloads/Archive/app/firebase_app.js">
       <metrics statements="7" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
@@ -87,7 +87,7 @@
       <line num="23" count="4" type="stmt"/>
     </file>
     <file name="route.js" path="/Users/thibaudevrard/Downloads/Archive/app/route.js">
-      <metrics statements="46" coveredstatements="43" conditionals="24" coveredconditionals="23" methods="11" coveredmethods="10"/>
+      <metrics statements="48" coveredstatements="45" conditionals="24" coveredconditionals="22" methods="12" coveredmethods="11"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
@@ -99,41 +99,43 @@
       <line num="11" count="3" type="stmt"/>
       <line num="13" count="1" type="stmt"/>
       <line num="17" count="1" type="stmt"/>
-      <line num="18" count="6" type="stmt"/>
-      <line num="19" count="6" type="stmt"/>
-      <line num="21" count="6" type="stmt"/>
-      <line num="32" count="6" type="cond" truecount="4" falsecount="0"/>
-      <line num="33" count="1" type="stmt"/>
-      <line num="37" count="5" type="cond" truecount="2" falsecount="0"/>
-      <line num="38" count="1" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="24" count="6" type="stmt"/>
+      <line num="25" count="6" type="stmt"/>
+      <line num="27" count="6" type="stmt"/>
+      <line num="38" count="6" type="cond" truecount="4" falsecount="0"/>
       <line num="39" count="1" type="stmt"/>
-      <line num="43" count="4" type="stmt"/>
-      <line num="48" count="3" type="stmt"/>
-      <line num="49" count="3" type="stmt"/>
-      <line num="50" count="3" type="stmt"/>
-      <line num="51" count="3" type="stmt"/>
-      <line num="54" count="1" type="stmt"/>
-      <line num="55" count="1" type="stmt"/>
-      <line num="59" count="1" type="stmt"/>
-      <line num="60" count="3" type="stmt"/>
-      <line num="62" count="3" type="cond" truecount="4" falsecount="0"/>
-      <line num="63" count="1" type="stmt"/>
-      <line num="66" count="2" type="stmt"/>
-      <line num="68" count="1" type="stmt"/>
-      <line num="70" count="1" type="stmt"/>
-      <line num="71" count="1" type="stmt"/>
-      <line num="75" count="1" type="stmt"/>
-      <line num="76" count="2" type="stmt"/>
-      <line num="78" count="2" type="cond" truecount="3" falsecount="1"/>
-      <line num="79" count="0" type="stmt"/>
+      <line num="43" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="44" count="1" type="stmt"/>
+      <line num="45" count="1" type="stmt"/>
+      <line num="49" count="4" type="stmt"/>
+      <line num="54" count="3" type="stmt"/>
+      <line num="55" count="3" type="stmt"/>
+      <line num="56" count="3" type="stmt"/>
+      <line num="57" count="3" type="stmt"/>
+      <line num="60" count="1" type="stmt"/>
+      <line num="61" count="1" type="stmt"/>
+      <line num="65" count="1" type="stmt"/>
+      <line num="66" count="3" type="stmt"/>
+      <line num="68" count="3" type="cond" truecount="4" falsecount="0"/>
+      <line num="69" count="1" type="stmt"/>
+      <line num="72" count="2" type="stmt"/>
+      <line num="74" count="1" type="stmt"/>
+      <line num="76" count="1" type="stmt"/>
+      <line num="77" count="1" type="stmt"/>
+      <line num="81" count="1" type="stmt"/>
       <line num="82" count="2" type="stmt"/>
-      <line num="83" count="2" type="cond" truecount="2" falsecount="0"/>
-      <line num="84" count="1" type="stmt"/>
-      <line num="87" count="1" type="stmt"/>
-      <line num="89" count="1" type="stmt"/>
-      <line num="91" count="0" type="stmt"/>
-      <line num="92" count="0" type="stmt"/>
-      <line num="97" count="1" type="stmt"/>
+      <line num="84" count="2" type="cond" truecount="3" falsecount="1"/>
+      <line num="85" count="0" type="stmt"/>
+      <line num="88" count="2" type="stmt"/>
+      <line num="89" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="90" count="1" type="stmt"/>
+      <line num="93" count="1" type="stmt"/>
+      <line num="95" count="1" type="stmt"/>
+      <line num="97" count="0" type="stmt"/>
+      <line num="98" count="0" type="stmt"/>
+      <line num="103" count="1" type="stmt"/>
     </file>
     <file name="server.js" path="/Users/thibaudevrard/Downloads/Archive/app/server.js">
       <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="1" methods="0" coveredmethods="0"/>
